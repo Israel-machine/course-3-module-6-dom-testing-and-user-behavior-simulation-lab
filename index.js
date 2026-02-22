@@ -1,15 +1,47 @@
-// Step 1: Simulate User Behavior
-// - Add event listeners for button clicks and form submissions.
-// - Use JavaScript to dynamically update the DOM based on user actions.
+const addElementToDOM = (elementId, string) => {
+    const content = document.getElementById(elementId)
+    content.textContent = string
+}
 
-// Step 2: DOM Manipulation Functions
-// - Implement functions to add, update, and remove DOM elements.
-// - Ensure all elements are dynamically created with appropriate attributes and content.
+const removeElementFromDOM = (elementId) => {
+    const element = document.getElementById(elementId)
+    if (element) {
+        element.remove()
+    }
+}
 
-// Step 3: Error Handling
-// - Display error messages in the DOM for invalid inputs or missing elements.
-// - Create reusable functions to handle common error cases.
+const simulateClick = (elementId, string) => {
+    const element = document.getElementById(elementId)
+    element.textContent = string
+}
 
-// Step 4: Reusable Utilities
-// - Create modular utility functions, such as createElement(tag, attributes).
-// - Ensure all functions follow DRY principles for maintainability.
+const handleFormSubmit = (formId, elementId) => {
+    const input = document.getElementById('user-input')
+    const targetElement = document.getElementById(elementId)
+    const errorMessage = document.getElementById('error-message')
+
+    const value = input.value.trim()
+
+    if (!value) {
+        errorMessage.textContent = 'Input cannot be empty'
+        errorMessage.classList.remove('hidden')
+        return
+    }
+
+    targetElement.textContent = value
+    errorMessage.classList.add('hidden')
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('user-form').addEventListener('submit', (event) => {
+        event.preventDefault()
+        handleFormSubmit('user-form', 'dynamic-content')
+    })
+})
+
+module.exports = { 
+    addElementToDOM, 
+    removeElementFromDOM, 
+    simulateClick, 
+    handleFormSubmit 
+};
